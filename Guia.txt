@@ -1,0 +1,33 @@
+FINAL DOCKER LOCAL
+
+El archivo docherfile cuenta con el siguiente código:
+
+	FROM ubuntu
+	RUN apt update
+	RUN apt install tzdata -y
+	ENV TZ="America/Bogota"
+	RUN apt install git -y
+	RUN apt install apache2 -y
+	RUN apt install php -y
+	RUN git clone https://github.com/Mcestradad/Frntnd.git
+	EXPOSE 80
+	RUN cp -r simple-php-website/* /var/www/html/
+	RUN rm /var/www/html/index.html	
+
+Dicho código crea un contenedor ubuntu el cual mostrará una página web propia tomada del repositorio
+https://github.com/Mcestradad/Frntnd.git. -->Para ver la página: https://mcestradad.github.io/Frntnd/
+
+La zona de configuración es bogotá.
+Se instala git, apache  y php. Se abre el puerto 80 y se dan las ordenes para cargar la página.
+
+Para ejecutar el docker en ubuntu:
+	Si no cuenta con los servicios de docker:
+		sudo apt-get update
+		sudo apt install docker.io
+		sudo systemctl start docker
+		sudo systemctl enable docker
+	Para crear el docker:
+		sudo docker build –t=”mywebserver” .  -->mywebserver puede reemplazarlo por el nombre que desee.
+	Para ejecutar el docker:
+		sudo docker run –d –p 80:9090 mywebserver --> 9090 puede reemplazarlo por algún puerto de su maquina disponible.
+	Finalmente, acceda a dicho puerto y visualice el contenido del contenedor.
